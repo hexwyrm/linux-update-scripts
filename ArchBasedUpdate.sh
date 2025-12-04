@@ -1,14 +1,14 @@
 #!/bin/bash
-# Unified system update script for Fedora
+# Unified system update script for Arch-based distros (RebornOS, Manjaro, etc.)
 # Author: hexwyrm (github.com/hexwyrm)
 
-# Update DNF packages
-echo "Updating Fedora packages (dnf)..."
-sudo dnf upgrade --refresh -y
+# Update pacman packages
+echo "Updating Arch-based packages (pacman)..."
+sudo pacman -Syu --noconfirm
 
-# Remove unneeded dependencies
+# Remove unneeded dependencies (orphans)
 echo "Cleaning up unused packages..."
-sudo dnf autoremove -y
+sudo pacman -Rns $(pacman -Qdtq) --noconfirm 2>/dev/null || echo "No orphaned packages to remove."
 
 # Update Flatpaks
 echo "Updating Flatpak packages..."
